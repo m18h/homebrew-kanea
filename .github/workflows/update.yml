@@ -1,0 +1,48 @@
+name: update
+
+# The formula's bump path (kanea PRD §5.2.12, v1.67): this repository
+# watches m18h/kanea's releases itself, so no cross-repo credential exists
+# anywhere — the release workflow over there writes only to its own
+# repository, and this one needs nothing beyond its own GITHUB_TOKEN.
+# The price is a lag of up to the poll interval between a kanea release
+# and the formula bump; the formula's livecheck reports the new version in
+# the meantime.
+on:
+  schedule:
+    # Hourly, off the top of the hour.
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  bump:
+    name: Bump the formula to the latest kanea release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Regenerate the formula from the latest release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag="$(gh api repos/m18h/kanea/releases/latest --jq .tag_name)"
+          current="v$(sed -n 's/^  version "\(.*\)"/\1/p' Formula/kanea.rb)"
+          if [ "$tag" = "$current" ]; then
+            echo "formula already at ${tag}; nothing to do"
+            exit 0
+          fi
+          gh release download "$tag" --repo m18h/kanea \
+            --pattern checksums.txt --output /tmp/checksums.txt
+          bash scripts/update-formula.sh "$tag" /tmp/checksums.txt
+          if git diff --quiet Formula/kanea.rb; then
+            echo "regeneration produced no change; nothing to push"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Formula/kanea.rb
+          git commit -m "chore: bump formula to ${tag}"
+          git push
