@@ -9,7 +9,7 @@
 class Kanea < Formula
   desc "Container orchestration in one binary"
   homepage "https://github.com/m18h/kanea"
-  version "0.37.1"
+  version "0.38.0"
   license "Apache-2.0"
 
   livecheck do
@@ -19,22 +19,22 @@ class Kanea < Formula
 
   on_macos do
     on_arm do
-      url "https://github.com/m18h/kanea/releases/download/v0.37.1/kanea_0.37.1_darwin_arm64.tar.gz"
-      sha256 "cc4055897a25f5f7965683249af33948788190929c0d4e05767e888ef4e372f7"
+      url "https://github.com/m18h/kanea/releases/download/v0.38.0/kanea_0.38.0_darwin_arm64.tar.gz"
+      sha256 "319785b6a90eeec01b31fcc4aa0673d1493cad185efcd0fb8550425fd6efcd1b"
     end
     on_intel do
-      url "https://github.com/m18h/kanea/releases/download/v0.37.1/kanea_0.37.1_darwin_amd64.tar.gz"
-      sha256 "482d640dab140b84e0b8ebb3a5b5ba9eed1c1b25c90028e1466740ae6323d688"
+      url "https://github.com/m18h/kanea/releases/download/v0.38.0/kanea_0.38.0_darwin_amd64.tar.gz"
+      sha256 "3386d8ad0e77939d6d7b2694189a21affe99a7804988518a98930bcfbb193b76"
     end
   end
   on_linux do
     on_arm do
-      url "https://github.com/m18h/kanea/releases/download/v0.37.1/kanea_0.37.1_linux_arm64.tar.gz"
-      sha256 "ccac9ceb39033a8f866404d3892dc58fa652881198fa1ec22036d421f7ab1a23"
+      url "https://github.com/m18h/kanea/releases/download/v0.38.0/kanea_0.38.0_linux_arm64.tar.gz"
+      sha256 "d6098d930bdbddab657305168b877b030f13e98202df22d6b22c81e2543954e5"
     end
     on_intel do
-      url "https://github.com/m18h/kanea/releases/download/v0.37.1/kanea_0.37.1_linux_amd64.tar.gz"
-      sha256 "a1744eace7664ddb3ded6198974a7bb92e9414022cf2395bff9b88256b356860"
+      url "https://github.com/m18h/kanea/releases/download/v0.38.0/kanea_0.38.0_linux_amd64.tar.gz"
+      sha256 "0bb1069ac8d3c5f4a04f22cc3667acbe8cbc790a8e0b525d1ca3a7ea34154427"
     end
   end
 
